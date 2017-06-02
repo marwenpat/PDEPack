@@ -1,0 +1,95 @@
+#ifndef JACOBI_H
+#define JACOBI_H
+
+#include <tnt.h>
+
+//! Gesamtschritt-Verfahren zur Lösung eines linearen Gleichungssystems
+/*!
+ * Diese Klasse realisiert die Lösung eines linearen Gleichungssytems
+ * mit Hilfe des Gesamtschritt- oder Jacobi-Verfahren.
+ *
+ * Diese Klasse verwendet die TNT für Datenstrukturen für Matrizen und
+ * Vektoren.
+ *
+ * Als Default-Abbruchgenauigkeit wird der Wert der Variablen Eps
+ * in utils.h verwendet. Wir verwenden die Maximumsnorm, um
+ * den relativen Fehler im Abbruchkriterium zu berechnen.
+ */
+class Jacobi
+{
+public:
+    
+        //! Defaultkonstruktor
+	    /*!
+	     *  n wird 0 gesetzt.
+		 *  Abbruchgenauigkeit ist Eps aus utils.h
+		 *  Maximale Anzahl der Iterationen ist 0
+		 */
+	    Jacobi();
+
+        //! Konstruktor mit einer Koeffizientenmatrix
+        /*!
+		 *  Falls ein Diagonalelement zu klein ist gibt es eine
+		 *  Ausgabe auf std::cerr. Dann sollte die Iteration nicht
+		 *  durchgeführt werden.
+		 *
+		 * Abbruchgenauigkeit ist Eps aus utils.h
+		 *  Maximale Anzahl der Iterationen ist 10
+		 *
+         * \param matrix Koeffizientenmatrix
+		 * \param rhs rechte Seite des Gleichungssystems
+         */
+		Jacobi(TNT::Matrix<double> matrix, TNT::Vector<double> rhs);
+
+        //! Lösung des linearen Gleichungssystems
+	    /*!
+		 * \param start Vektor mit Startwert
+	     * \return Berechnete Lösung. 
+	     */
+		TNT::Vector<double> solve(TNT::Vector<double> start);
+
+        //! Ausgabe der Inhalt der Instanz auf der Konsole
+        void print() const;
+
+		//! Setzen der Abbruchgenauigkeit
+		void setEpsilon(double e);
+
+		//! Setzen der maximalen Anzahl der Iterationen
+		void maxNumberOfIterations(unsigned m);
+
+private:
+
+		//! Dimension des Gleichungssystems
+		unsigned int n;
+		//! Zeiger auf eine Instanz einer  Matrix
+		TNT::Matrix<double> A;
+		//! Vektor mit der rechten Seite des linearen Gleichungssystems
+		TNT::Vector<double> b;
+		//! Abbruchgenauigkeit
+		double localEpsilon;
+		//! Maximale Anzahl der Iterationen als "Notbremse"
+		unsigned int maxIter;
+		//! Anzahl der Iterationen
+		/*!
+		 * Nach dem Aufruf von ::solve kann mit dieser Variable die benötigte
+		 * Anzahl der Iterationen, die durchgeführt wurden, ausgegeben werden.
+		 * Vorher ist dieser Wert 0.
+		 */
+		unsigned int noI;
+
+		//! Berechnung der Maximumsnorm im Abbruchkriterium
+		/*!
+		 * Vergleich eines TNT Vektors mit einem Zielvektor mit Hilfe der Maximums - Norm
+		 * Ist die relative Abweichung kleiner als die Genauigkeit localEpsilon, dann wird true zurückgegeben
+		 */
+		bool compareVectorMaximumNorm(TNT::Vector<double> value, TNT::Vector<double> target) const;
+};
+
+// - Inline section ---------------------------------------
+
+// Setzen der Abbruchgenauigkeit, wenn nicht der Default verwendet werden soll
+inline void Jacobi::setEpsilon(double e) { localEpsilon = e; }
+// Setzen der maximalen Anzahl der Iterationen
+inline void Jacobi::maxNumberOfIterations(unsigned int m) { maxIter = m;  }
+
+#endif
