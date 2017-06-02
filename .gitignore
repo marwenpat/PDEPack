@@ -29,3 +29,8 @@ html/
 *.out
 *.app
 
+# Sheets ignorieren
+*.ods
+*.xls
+*.xlsx
+
