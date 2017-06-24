@@ -1,12 +1,12 @@
 #include <iomanip>
 
 #include "utils.h"
-#include "JacobiTriScalar.h"  
+#include "GaussSeidelTriScalar.h"  
 
-JacobiTriScalar::JacobiTriScalar() : Iterative() {}
+GaussSeidelTriScalar::GaussSeidelTriScalar() : Iterative() {}
 
 // Konstruktor mit Koeffizientenmatrix
-JacobiTriScalar::JacobiTriScalar(TriDiagScalar matrix, TNT::Vector<double> rhs) 
+GaussSeidelTriScalar::GaussSeidelTriScalar(TriDiagScalar matrix, TNT::Vector<double> rhs) 
 	: Iterative(rhs), diag(matrix.getDiagonalElement()), upper(matrix.getUpperElement()),
 	  lower(matrix.getLowerElement()), xalt(this->n) 
 {
@@ -15,7 +15,7 @@ JacobiTriScalar::JacobiTriScalar(TriDiagScalar matrix, TNT::Vector<double> rhs)
 			std::cerr << "Das Diagonallement im Gesamtschritt-Verfahren ist zu klein!" << std::endl;
 }
 
-JacobiTriScalar::JacobiTriScalar(TriDiagScalar matrix, TNT::Vector<double> rhs, double epsilon, unsigned int maxI)
+GaussSeidelTriScalar::GaussSeidelTriScalar(TriDiagScalar matrix, TNT::Vector<double> rhs, double epsilon, unsigned int maxI)
 	: Iterative(rhs, epsilon, maxI), diag(matrix.getDiagonalElement()), upper(matrix.getUpperElement()),
 	lower(matrix.getLowerElement()), xalt(this->n)
 {
@@ -25,7 +25,7 @@ JacobiTriScalar::JacobiTriScalar(TriDiagScalar matrix, TNT::Vector<double> rhs, 
 }
 
 // Wir überprüfen nicht, ob die Dimension von Start zum linearen Gleichungssystem passt
-void JacobiTriScalar::iterate()
+void GaussSeidelTriScalar::iterate()
 {
 	xalt = x;
 
@@ -41,7 +41,7 @@ void JacobiTriScalar::iterate()
 		stop();
 }
 
-void JacobiTriScalar::print() const
+void GaussSeidelTriScalar::print() const
 {
 	std::cout << "Einzelschrittverfahren fuer lineare Gleichungssysteme" << std::endl;
 	std::cout << "Die Koeffizientenmatrix ist eine tridiagonale Matrix mit konstanten Elementen." << std::endl;

@@ -15,8 +15,8 @@ Wire1D::Wire1D(int np) : l(1.0), n(np), delta(l/static_cast<double>(n+1)),
 		lu(tri) {}
 
 
-Wire1D::Wire1D(double len, unsigned int np, double left, double right) : l(len), n(np), 
-delta(l / static_cast<double>(n + 1)),
+Wire1D::Wire1D(double len, unsigned int np, double left, double right) 
+	 : l(len), n(np), delta(l / static_cast<double>(n + 1)),
                a(left), b(right),
                tri(n, 2.0, -1.0, -1.0),
                lu(tri) 

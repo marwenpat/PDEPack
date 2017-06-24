@@ -3,8 +3,8 @@
 
 #include <tnt.h>
 
-#include "TriDiag.h"
-#include "TriLU.h"
+#include "TriDiagScalar.h"
+#include "TriLUScalar.h"
 
 //! Klasse für die numerische Lösung der eindimensionalen Kabelgleichung
 class Wire1D 
@@ -73,9 +73,9 @@ private:
 	//! Randwert für x=l
 	double b;
 	//! Tridiagonalmatrix für die numerische Lösung
-	TriDiag tri;
+	TriDiagScalar tri;
 	//! Instanz einer LU-Zerlegung für tridiagonale Matrizen
-	TriLU lu;
+	TriLUScalar lu;
 };
 
 #endif
