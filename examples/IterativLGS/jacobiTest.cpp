@@ -1,7 +1,6 @@
 // ---------------------------------------------------------------------------
-// Einlesen und Lösen eines tridiagonalen LGS
+// Beispielprogramm für die Verwendung von Jacobi
 // ---------------------------------------------------------------------------
-//#include <cmath>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -14,10 +13,11 @@
 using namespace std;
 
 /*!
- * \example Gesamtschrittverfahren
- * Das lineare Gleichungssystem wird eingelesen und mit dem Gesamtschrittverfahren
- * bearbeitet.
- */
+* \example JacobiTest.cpp
+*
+* Einlesen eines linearen Gleichungssystems mit voll besetzter Matrix und Lösung
+* mit dem Jacobi-Verfahren.
+*/
 int main(void)
 {
 	ifstream input;
@@ -56,5 +56,5 @@ int main(void)
 
 	std::cout << std::scientific << "Die Maximumsnorm der Abweichung " << normMaximum(x - correct) << std::endl;
 
-    return 0;
+	return EXIT_SUCCESS;
 }

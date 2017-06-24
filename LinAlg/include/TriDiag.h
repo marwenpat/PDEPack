@@ -44,7 +44,7 @@ public:
 	     * \param b Der konstante Wert für die obere Nebendiagonale
 	     * \param c Der konstante Wert für die untere Nebendiagonale
          */
-        TriDiag(int lda, double a, double b, double c);
+        TriDiag(unsigned int lda, double a, double b, double c);
 
         //! Multiplizieren der Matrix mit einem übergebenen Vektor
         /*!

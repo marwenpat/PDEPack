@@ -2,7 +2,8 @@
 #define TRILU_H
 
 #include <tnt.h>
-#include "TriDiag.h"
+
+#include "TriDiagArray.h"
 
 //! LU-Zerlegung und Auflösung von linearen Gleichungssystemen mit einer tridiagonalen Matrix
 /*!
@@ -24,16 +25,19 @@ public:
 		 */
 	    TriLU();
 
-        //! Konstruktor mit einer Koeffizientenmatrix
+		//! Konstruktor mit Dimension der linearen Gleichungssystems
+		TriLU(unsigned int lda);
+
+        //! Konstruktaor mit einer Koeffizientenmatrix
         /*!
 		 * Analog zur TNT::LU Zerlegung wird die LU-Zerlegung direkt 
 		 * im Konstruktor berechnet.
 		 *
          * \param matrix Instanz einer tridiagonalen Matrix
          */
-		TriLU(TriDiag matrix);
+		TriLU(TriDiagArray matrix);
 
-        //! Lösung des linearen Gleichungssystems für die übergebene rechte Seite
+        //! Lösung des linearen Gleichungssystems für die rechte Seite in der Instanz
 	    /*!
 		 * \param rhs Rechte Seite, für die eine Lösung berechnet werden soll
 	     * \return Berechnete Lösung. 
@@ -44,14 +48,12 @@ public:
         void print() const;
 
 		//! Abfragen der Dimension des Gleichungssystems
-		int getLDA() const;
+		unsigned int getLDA() const;
 
-private:
+protected:
 
 		//! Dimension des Gleichungssystems
-		int n;
-		//! Zeiger auf eine Instanz einer tridiagonalen Matrix
-		TriDiag A;
+		unsigned int n;
 		//! Vektor mit der unteren Diagonale des Faktors L
 		TNT::Vector<double> l;
 		//! Vektor mit der Diagonale des Faktors U
@@ -64,7 +66,7 @@ private:
 		* @return 0 Elimination erfolgreich
 		*         1 Elimination abgebrochen, Diagonalelement zu klein
 		*/
-		short decompose();
+		virtual short decompose();
 
 		//! Vorwärtssubstitution für Ly=rhs
 		/*!
@@ -74,7 +76,7 @@ private:
 		 * \param rhs Rechte Seite, für die die Lösung berechnet werden soll
 		 * \return Rückgabe ist die berechnete Lösung
 		 */
-		TNT::Vector<double> forwardSubstitution(TNT::Vector<double> rhs) const;
+		virtual TNT::Vector<double> forwardSubstitution(TNT::Vector<double> rhs) const;
 		//! Rückwärtsstubstition für Ux=y
 		/*!
 		* Der übergebene Vektor rhs muss die korrekte Länge besitzen,
@@ -85,6 +87,13 @@ private:
 		* \param rhs Rechte Seite, für die die Lösung berechnet werden soll
 		* \return Rückgabe ist die berechnete Lösung
 		*/
-		TNT::Vector<double> backwardSubstition(TNT::Vector<double> rhs) const;
+		virtual TNT::Vector<double> backwardSubstition(TNT::Vector<double> rhs) const;
+
+private:
+	   //! Eine Instanz einer tridiagonalen Matrix
+	   TriDiagArray A;
 };
+
+// - Inline section ---------------------------------------
+inline unsigned int TriLU::getLDA() const {return this->n;}
 #endif

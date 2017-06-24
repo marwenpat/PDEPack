@@ -7,7 +7,10 @@
 //! Gesamtschritt-Verfahren zur Lösung eines linearen Gleichungssystems
 /*!
  * Diese Klasse realisiert die Lösung eines linearen Gleichungssytems
- * mit Hilfe des Gesamtschritt- oder Jacobi-Verfahren.
+ * mit Hilfe des Gesamtschritt- oder Jacobi-Verfahrens.
+ *
+ * Es wird davon ausgegangen, dass die Koeffizientenmatrix eine voll
+ * besetzte Matrix ist.
  */
 class Jacobi : public Iterative
 {
@@ -43,7 +46,7 @@ public:
 		*
 		* \param matrix Koeffizientenmatrix
 		* \param rhs rechte Seite des Gleichungssystems
-		* \param Abbruchgenauigkeit
+		* \param epsilon Abbruchgenauigkeit
 		* \param maxI Maximale Anzahl der Iterationen
 		*/
 		Jacobi(TNT::Matrix<double> matrix, TNT::Vector<double> rhs, double epsilon, unsigned int maxI);
@@ -62,6 +65,8 @@ public:
         //! Ausgabe der Inhalt der Instanz auf der Konsole
         void print() const;
 private:
+	//! Zeiger auf eine Instanz einer  Matrix
+	TNT::Matrix<double> A;
 	//! Vektor für die vorhergehende Lösung in der Iteration
 	TNT::Vector<double> xalt;
 

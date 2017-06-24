@@ -11,7 +11,7 @@ TriDiag::TriDiag(TNT::Vector<double> diag, TNT::Vector<double> upperDiag, TNT::V
 
 
 // Konstruktor mit drei Konstanten für die Diagonalelemente
-TriDiag::TriDiag(int lda, double diag, double upperDiag, double lowerDiag) 
+TriDiag::TriDiag(unsigned int lda, double diag, double upperDiag, double lowerDiag) 
 	: n(lda), a(lda, diag), b(lda-1, upperDiag), c(lda-1, lowerDiag) {}
 
 

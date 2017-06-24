@@ -34,3 +34,5 @@ html/
 *.xls
 *.xlsx
 
+# vtk-Files ignorieren
+*.vtk

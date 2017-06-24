@@ -9,9 +9,11 @@
 
 TriLU::TriLU() : n(0) {}
 
+TriLU::TriLU(unsigned int lda) : n(lda), d(n, 0.0), l(n - 1, 0.0), u(n - 1, 0.0) {}
+
 // Konstruktor mit Koeffizientenmatrix
-TriLU::TriLU(TriDiag matrix) 
-	: n(matrix.getDimension()), A(matrix), d(n, 0.0), l(n - 1, 0.0), u(n-1,matrix.getUpperDiagonal())
+TriLU::TriLU(TriDiagArray matrix) 
+	: n(matrix.getDimension()), A(matrix), d(n, 0.0), l(n - 1, 0.0), u(n-1, matrix.getUpperDiagonal())
 {
 	short e = decompose();
 	if (e != 0)
@@ -22,12 +24,12 @@ TriLU::TriLU(TriDiag matrix)
 short TriLU::decompose()
 {
 	TNT::Vector<double> a(A.getDiagonal()),
-		b(A.getUpperDiagonal()),
-		c(A.getLowerDiagonal());
+		                b(A.getUpperDiagonal()),
+		                c(A.getLowerDiagonal());
 
 	d[0] = a[0];
 
-	for (int i = 0; i < this->n - 1; i++) {
+	for (unsigned int i = 0; i < this->n - 1; i++) {
 		if (fabs(d[i]) > Eps)
 			l[i] = c[i] / d[i];
 		else {
@@ -43,7 +45,7 @@ TNT::Vector<double> TriLU::forwardSubstitution(TNT::Vector<double> rhs) const
 {
 	TNT::Vector<double> y(n, rhs[0]);
 
-	for (int i = 1; i < this->n; i++)
+	for (unsigned int i = 1; i < this->n; i++)
 		y[i] = rhs[i] - l[i - 1] * y[i - 1];
 
 	return(y);
@@ -62,11 +64,6 @@ TNT::Vector<double> TriLU::backwardSubstition(TNT::Vector<double> rhs) const
 TNT::Vector<double> TriLU::solve(TNT::Vector<double> rhs) const
 {
 	return this->backwardSubstition(this->forwardSubstitution(rhs));
-}
-
-int TriLU::getLDA() const
-{
-	return this->n;
 }
 
 void TriLU::print() const

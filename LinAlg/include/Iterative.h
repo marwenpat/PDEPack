@@ -3,6 +3,14 @@
 
 #include <tnt.h>
 
+/*!
+ * \mainpage 
+ * 
+ * Projekt mit der Implementierung von Gesamt- und Einzelschrittverfahren.
+ * 
+ * Die Codes gehen später in das PDEPack-Projekt ein!
+ */
+
 //! Rein virtuelle Basisklasse für iterative Algorithmen zur Lösung von linearen Gleichungssystemen
 /*!
  * Die Klasse implementiert ein Default-Abbruchkriterium, das überschrieben werden kann. 
@@ -17,6 +25,7 @@ public:
 	    /*!
 	     *  n wird 0 gesetzt.
 		 *  Abbruchgenauigkeit ist Eps aus utils.h
+		 *
 		 *  Maximale Anzahl der Iterationen ist 0
 		 */
 	    Iterative();
@@ -28,12 +37,12 @@ public:
 		 *  durchgeführt werden.
 		 *
 		 * Abbruchgenauigkeit ist Eps aus utils.h
+		 *
 		 *  Maximale Anzahl der Iterationen ist 10
 		 *
-         * \param matrix Koeffizientenmatrix
 		 * \param rhs rechte Seite des Gleichungssystems
          */
-		Iterative(TNT::Matrix<double> matrix, TNT::Vector<double> rhs);
+		Iterative(TNT::Vector<double> rhs);
 
 		//! Konstruktor mit Koeffizientenmatrix, einer rechten Seite, Abbruchgenauigkeit und maximaler Anzahl der Iterationen
 		/*!
@@ -41,12 +50,11 @@ public:
 		 *  Ausgabe auf std::cerr. Dann sollte die Iteration nicht
 		 *  durchgeführt werden.
 		 *
-		 * \param matrix Koeffizientenmatrix
 		 * \param rhs rechte Seite des Gleichungssystems
-		 * \param Abbruchgenauigkeit
+		 * \param epsilon Abbruchgenauigkeit
 		 * \param maxI Maximale Anzahl der Iterationen
 		 */
-		Iterative(TNT::Matrix<double> matrix, TNT::Vector<double> rhs, double epsilon, unsigned int maxI);
+		Iterative(TNT::Vector<double> rhs, double epsilon, unsigned int maxI);
 
         //! Lösung des linearen Gleichungssystems
 	    /*!
@@ -56,6 +64,10 @@ public:
 		 * Überprüft, ob die maximale Anzahl der Iterationen bereits erreicht
 		 * wurde. Das Abbruchkriterium muss in der Funktion implementiert werden,
 		 * die den Iterationsschritt implementiert.
+		 *
+		 * Diese Funktion ist generisch und kann nicht überschrieben werden!
+		 *
+		 * \return Aktuelle Näherung wird zurückgegeben.
 	     */
 		TNT::Vector<double> solve(TNT::Vector<double> start);
 
@@ -65,13 +77,11 @@ public:
 		* In dieser Funktion wird das Abbruchkriterium durchgeführt
 		* und, falls es erfüllt ist, muss die Funktion die Variable
 		* Iterative::shouldStop auf true gesetzt werden. 
-		*
-		* \return Aktuelle Näherung wird zurückgegeben.
 		*/
 		virtual void iterate() = 0;
 
         //! Ausgabe der Inhalt der Instanz auf der Konsole
-        void print() const;
+        virtual void print() const;
 
 		//! Abfragen einer Lösung
 		TNT::Vector<double> getSolution();
@@ -88,8 +98,6 @@ public:
 protected:
 		//! Dimension des Gleichungssystems
 		unsigned int n;
-		//! Zeiger auf eine Instanz einer  Matrix
-		TNT::Matrix<double> A;
 		//! Vektor mit der rechten Seite des linearen Gleichungssystems
 		TNT::Vector<double> b;
 		//! Feld für die Durchführung der Iteration

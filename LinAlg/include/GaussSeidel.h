@@ -7,7 +7,10 @@
 //! Einzelschritt-Verfahren zur Lösung eines linearen Gleichungssystems
 /*!
  * Diese Klasse realisiert die Lösung eines linearen Gleichungssytems
- * mit Hilfe des Einzelschritt- oder Gauss-Seidel-Verfahren.
+ * mit Hilfe des Einzelschritt- oder Gauss-Seidel-Verfahrens.
+ *
+ * Es wird davon ausgegangen, dass die Koeffizientenmatrix eine voll
+ * besetzte Matrix ist.
  */
 class GaussSeidel : public Iterative
 {
@@ -16,6 +19,7 @@ public:
 	    /*!
 	     *  n wird 0 gesetzt.
 		 *  Abbruchgenauigkeit ist Eps aus utils.h
+		 *
 		 *  Maximale Anzahl der Iterationen ist 0
 		 */
 	    GaussSeidel();
@@ -27,6 +31,7 @@ public:
 		 *  durchgeführt werden.
 		 *
 		 * Abbruchgenauigkeit ist Eps aus utils.h
+		 *
 		 *  Maximale Anzahl der Iterationen ist 10
 		 *
          * \param matrix Koeffizientenmatrix
@@ -42,7 +47,7 @@ public:
 		*
 		* \param matrix Koeffizientenmatrix
 		* \param rhs rechte Seite des Gleichungssystems
-		* \param Abbruchgenauigkeit
+		* \param epsilon Abbruchgenauigkeit
 		* \param maxI Maximale Anzahl der Iterationen
 		*/
 		GaussSeidel(TNT::Matrix<double> matrix, TNT::Vector<double> rhs, double epsilon, unsigned int maxI);
@@ -61,9 +66,11 @@ public:
         //! Ausgabe der Inhalt der Instanz auf der Konsole
         void print() const;
 private:
+	//! Zeiger auf eine Instanz einer  Matrix
+	TNT::Matrix<double> A;
 	//! Vektor für die vorhergehende Lösung in der Iteration
 	/*!
-	 * Dieser Vektor wird nur für das Abbruchkriterium benötigt.
+	 * Dieser Vektor wird ausschließlich für das Abbruchkriterium benötigt!
 	 */
 	TNT::Vector<double> xalt;
 };

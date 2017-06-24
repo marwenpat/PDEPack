@@ -1,7 +1,6 @@
 // ---------------------------------------------------------------------------
-// Einlesen und Lösen eines tridiagonalen LGS
+// Beispielprogramm für die Verwendung von GaussSeidel
 // ---------------------------------------------------------------------------
-//#include <cmath>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -14,11 +13,11 @@
 using namespace std;
 
 /*!
- * \example Einzelschrittverfahren
- *
- * Das lineare Gleichungssystem wird eingelesen und mit dem Einzelschrittverfahren
- * bearbeitet.
- */
+* \example GaussSeidelTest.cpp
+*
+* Einlesen eines linearen Gleichungssystems mit voll besetzter Matrix und Lösung
+* mit dem Gauss-Seidel-Verfahren.
+*/
 int main(void)
 {
 	ifstream input;
@@ -59,5 +58,5 @@ int main(void)
 
 	std::cout << std::scientific << "Die Maximumsnorm der Abweichung " << normMaximum(x - correct) << std::endl;
 
-    return 0;
+	return EXIT_SUCCESS;
 }
