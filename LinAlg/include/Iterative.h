@@ -3,14 +3,6 @@
 
 #include <tnt.h>
 
-/*!
- * \mainpage 
- * 
- * Projekt mit der Implementierung von Gesamt- und Einzelschrittverfahren.
- * 
- * Die Codes gehen später in das PDEPack-Projekt ein!
- */
-
 //! Rein virtuelle Basisklasse für iterative Algorithmen zur Lösung von linearen Gleichungssystemen
 /*!
  * Die Klasse implementiert ein Default-Abbruchkriterium, das überschrieben werden kann. 
@@ -59,7 +51,7 @@ public:
         //! Lösung des linearen Gleichungssystems
 	    /*!
 		 * Generische Durchführung des iterativen Verfahrens. Verwendet
-		 * die abstrakte Funktion ::iteration().
+		 * die abstrakte Funktion Iterative::iteration().
 		 *
 		 * Überprüft, ob die maximale Anzahl der Iterationen bereits erreicht
 		 * wurde. Das Abbruchkriterium muss in der Funktion implementiert werden,
@@ -112,7 +104,7 @@ protected:
 		unsigned int maxIter;
 		//! Anzahl der Iterationen
 		/*!
-		 * Nach dem Aufruf von ::solve kann mit dieser Variable die benötigte
+		 * Nach dem Aufruf von Iterative::solve kann mit dieser Variable die benötigte
 		 * Anzahl der Iterationen, die durchgeführt wurden, ausgegeben werden.
 		 * Vorher ist dieser Wert 0.
 		 */

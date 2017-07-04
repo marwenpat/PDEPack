@@ -2,15 +2,22 @@
 #define TRIDIAGARRAY_H
 
 #include <tnt.h>
-//#include "TriDiag.h"
 
 /*!
  * \mainpage
  * Das ist der erste Eintrag für die index.html.
  *
  * \image html pdepackweb.png
+ *
+ *
+ * Verwendete externe Software: Template Numerical Toolkit TNT, Version 3.0.12
+ *
+ * Vergleiche Datei tnt_version.h.
+ *
+ * Diesen Eintrag finden Sie mit dem Keyword mainpage in der Header-Datei TriDiag.h.
  */
-//! Repräsentation einer tridiagonalen Matrix mit Hilfe von drei TNT-Vektoren
+
+//! Repräsentation einer tridiagonalen Matrix
 class TriDiag //: public TriDiag
 {
 public:
@@ -27,8 +34,7 @@ public:
 		 * Für eine nxn tridiagonale Matrix hat die Diagonale
 		 * lda Elemente, die beiden Nebendiagonalen lda-1 Elemente!
 		 *
-         * \param lda Anzahl Zeilen und Spalten
-         * \param adiag Die lda Elemente auf der Diagonale
+         * \param diag Die lda Elemente auf der Diagonale
 	     * \param upperDiag Die lda-1 Elemente auf der oberen Nebendiagonale
 	     * \param lowerDiag Die lda-1 Elemente auf der unteren Nebendiagonale
 	     *

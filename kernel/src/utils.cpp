@@ -15,7 +15,7 @@ TNT::Vector<double> unitVector(int i, int n)
 bool compareVector(TNT::Vector<double> value, TNT::Vector <double> target, double epsilon)
 {
 	TNT::Vector<double> diff(value - target);
-	return (sqrt(TNT::dot_product(diff, diff) / TNT::dot_product(target, target)) < epsilon);
+	return (sqrt(TNT::dot_prod(diff, diff) / TNT::dot_prod(target, target)) < epsilon);
 }
 
 // Vergleich eines TNT Vektors mit einem Zielvektor mit Hilfe der Maximums-Norm

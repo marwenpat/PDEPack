@@ -49,7 +49,7 @@ public:
 		 * und x=l.
 		 *
 		 * Die dazu gehörigen y-Koordinaten erhalten wir als Ausgabe
-		 * der Funktion ::solve;
+		 * der Funktion Wire1D::solve;
 		 */
 		TNT::Vector<double> getXCoord() const;
 

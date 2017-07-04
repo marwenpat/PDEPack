@@ -12,9 +12,13 @@
 
 #include "Wire1D.h"
 
-/*!
- * \example Drahtgleichung
- */
+//! \addtogroup apps Drahtgleichung
+/*! \addtogroup apps
+*  @{
+* Lösung der Drahtgleichung für einen im Quelltext vorgegebenen Kraftvektor
+* und Export der Ergebnisse im VTK-Format für die Visualisierung in ParaView.
+*/
+
 int main(void)
 {
     int n(10);
@@ -41,3 +45,4 @@ int main(void)
 
     return EXIT_SUCCESS;
 }
+/*! @}  end doxygen addtogroup apps */
